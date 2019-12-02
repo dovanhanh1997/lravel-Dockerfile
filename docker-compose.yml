@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  server:
+    image: nginx
+    container_name: nginx_server_test_queue
+    ports:
+      - 8010:80
+  backend:
+    build: .
+    container_name: laravel-practice-queue
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+  db:
+    image: mysql:5.7
+    container_name: practice.db
+    hostname: practice.db
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: practice_queue
+    ports:
+      - 3306:3306
+
